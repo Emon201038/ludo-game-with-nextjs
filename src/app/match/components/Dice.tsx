@@ -41,7 +41,7 @@ const Dice = ({ playerNo, }: { playerNo: 1 | 2 | 3 | 4 }) => {
 
   const handleDiceClick = async () => {
     dispatch(updateDiceRolling({ isDiceRolling: true }))
-    // const value = 2;
+    // const value = 5;
     // const value = Math.floor(Math.random() * 6) + 1;
     const value = biasedDiceRoll();
     const diceSound = new Audio("/sfx/dice_roll.mp3");
@@ -65,7 +65,6 @@ const Dice = ({ playerNo, }: { playerNo: 1 | 2 | 3 | 4 }) => {
 
     const isAnyPieceAlive = data?.findIndex(i => i.travelCount > 0 && i.travelCount <= 57);
     const isAnyPieceLock = data?.findIndex(i => i.travelCount === 0);
-    console.log(isAnyPieceAlive, data)
 
     if (isAnyPieceAlive === -1) {
       if (value === 6) {

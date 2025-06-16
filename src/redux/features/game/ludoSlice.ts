@@ -9,7 +9,6 @@ export const matchSlice = createSlice({
   reducers: {
     resetGame: () => initialState,
     diceClick: (state, action: PayloadAction<{ player: number, diceValue: number }>) => {
-      console.log(action.payload);
       const { player } = action.payload;
       state.diceNo = action.payload.diceValue
       let chancePlayer = player + 1 as 1 | 2 | 3 | 4;
@@ -74,7 +73,6 @@ export const matchSlice = createSlice({
         }
       }
 
-      console.log({ pos: piece?.pos, id: piece?.id, travelCount: piece?.travelCount }, "payload:", action.payload);
     },
 
     unfreezeDice: (state) => {

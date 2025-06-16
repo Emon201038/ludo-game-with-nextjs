@@ -34,7 +34,7 @@ const Modal = () => {
       {isOpen && <div aria-label='modal'
         role='dialog'
 
-        className=' inset-0 fixed top-0 left-0 z-50 w-screen h-screen bg-black/90 flex flex-col justify-center items-center'>
+        className=' inset-0 fixed top-0 left-0 z-100 w-screen h-screen bg-black/90 flex flex-col justify-center items-center'>
         <div className='bg-white p-2 text-black rounded-md shadow-md relative'>
           <div onClick={() => setIsOpen(false)} className='absolute top-2 right-2 cursor-pointer'><X className='w-4 h-4 opacity-70' /></div>
           <div className='mt-2 mr-2'>

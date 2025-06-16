@@ -6,12 +6,14 @@ import { Colors } from '@/helper/Colors';
 
 interface PileProps {
   cell: boolean;
+  cellId?: number;
+  index?: number;
   pieceId: string;
   color: string;
   player: 1 | 2 | 3 | 4;
   onClick: ({ player, pieceId }: { player: number, pieceId: string }) => void
 }
-const Pile = ({ cell, pieceId, color, player, onClick }: PileProps) => {
+const Pile = ({ cell, cellId, pieceId, color, player, onClick }: PileProps) => {
   const diceNo = useAppSelector(state => state.ludo.diceNo)
   const state = useAppSelector(state => state.ludo);
   const playerPieces = state[`P${player}`];
@@ -22,7 +24,9 @@ const Pile = ({ cell, pieceId, color, player, onClick }: PileProps) => {
   const isForwardable = useCallback(() => {
     const piece = playerPieces.find(p => p.id === pieceId);
     return piece && piece.travelCount + diceNo <= 57;
-  }, [diceNo, pieceId, playerPieces])
+  }, [diceNo, pieceId, playerPieces]);
+
+  const piecesAtPosition = useMemo(() => state.currentposition.filter(i => i.pos === cellId), [state.currentposition, cellId]);
   return (
     <div
       key={`${player}-${pieceId}`}
@@ -37,12 +41,15 @@ const Pile = ({ cell, pieceId, color, player, onClick }: PileProps) => {
           onClick({ player, pieceId });
         }
       }}
-      className={`relative ${(isForwardable() && (isPileEnabled || isCellEnabled)) ? "cursor-pointer" : ""}`}
+      style={{
+        scale: (isForwardable() && (cell ? isCellEnabled : isPileEnabled)) && piecesAtPosition.length > 1 ? 1 + (piecesAtPosition.length * 0.20) : 1
+      }}
+      className={`relative ${(isForwardable() && (cell ? isCellEnabled : isPileEnabled)) ? "cursor-pointer" : ""} ${(isForwardable() && (cell ? isCellEnabled : isPileEnabled)) && piecesAtPosition.length > 1 ? " scale-150" : ""} `}
     >
       <div className="pin ">
         <div
           style={{ backgroundColor: color }}
-          className={`absolute size-3.5  top-[11px] rounded-full left-[8px] border border-slate-400`}
+          className={`absolute size-3.5  top-[11px] rounded-full left-[8px] border border-slate-400 `}
         ></div>
 
         <div className=" z-50">

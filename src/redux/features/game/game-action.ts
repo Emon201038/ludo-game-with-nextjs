@@ -33,6 +33,7 @@ export const handleForwardThunk = (playerNo: 1 | 2 | 3 | 4, id: string, pos: num
 
   //pile movement
   for (let i = 1; i <= diceNo; i++) {
+    dispatch(disableTouch())
     const updatedState = getState().ludo;
     const playerPieces = updatedState[`P${playerNo}`].find(p => p.id === id);
 
@@ -50,11 +51,11 @@ export const handleForwardThunk = (playerNo: 1 | 2 | 3 | 4, id: string, pos: num
     travelCount += 1;
 
     dispatch(updatePlayerPieceValue({ player: `P${playerNo}`, pieceId: id, pos: path, travelCount: travelCount }));
-    dispatch(unfreezeDice());
 
     playSound("pile_move");
     await delay(200)
   }
+  dispatch(unfreezeDice());
 
 
   const finalState = getState().ludo;
@@ -80,7 +81,6 @@ export const handleForwardThunk = (playerNo: 1 | 2 | 3 | 4, id: string, pos: num
 
     const backwardPath = startingPoints[enemyPlayerNo - 1];
     let i = enemyPiece?.pos;
-    console.log(i, "enemy position")
 
     playSound("collide")
     while (i !== backwardPath) {

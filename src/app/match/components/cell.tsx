@@ -22,7 +22,7 @@ const Cell = ({ id, color, orientation = "horizontal" }: { id: number, color: st
   return (
     <div
       id={`cell-${id}`}
-      className={`${orientation === "horizontal" ? "w-1/3 h-full" : "w-1/6 h-1/3"} h-full flex items-center gap-0 justify-center border `}
+      className={`relative ${orientation === "horizontal" ? "w-1/3 h-full" : "w-1/6 h-1/3"} h-full flex items-center gap-0 justify-center border `}
       style={{ borderColor: Colors.borderColor, backgroundColor: SafeSpots.includes(id) ? color : "white" }}
     >
       {isStarSpot && (
@@ -40,9 +40,19 @@ const Cell = ({ id, color, orientation = "horizontal" }: { id: number, color: st
           const pieceColor = p.id.slice(0, 1) === "A" ? Colors.blue : p.id.slice(0, 1) === "B" ? Colors.red : p.id.slice(0, 1) === "C" ? Colors.green : Colors.yellow;
 
           return (
-            <div style={{ scale: piecesAtPosition.length === 1 ? 1 : 0.7 }} key={p.id}>
+            <div style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              top: 0,
+              left: 0,
+              zIndex: 30,
+              transform: `translateX(${piecesAtPosition.length === 1 ? 0 : index % 2 === 0 ? -6 : 6}px) 
+              translateY(${piecesAtPosition.length === 1 ? 0 : index < 2 ? -5 : 5}px) 
+              scale(${piecesAtPosition.length === 1 ? 1 : piecesAtPosition.length > 2 ? 0.6 : 0.7})`,
+            }} key={p.id} className='flex justify-center items-center'>
 
-              <Pile cell={true} key={p.id} pieceId={p.id} color={pieceColor} player={playerNo} onClick={handleClick} />
+              <Pile cell={true} key={p.id} pieceId={p.id} color={pieceColor} player={playerNo} onClick={handleClick} cellId={id} index={index} />
             </div>
           )
         })

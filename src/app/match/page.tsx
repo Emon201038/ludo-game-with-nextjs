@@ -6,10 +6,9 @@ import VerticalCell from './components/vertical-cell'
 import { Plot1Data, Plot2Data, Plot3Data, Plot4Data } from '@/helper/PlotData'
 import HorizontalCell from './components/horizontal-cell'
 import Squar from './components/squar'
-import UpperDice from './upper-dices'
-import LowerDice from './components/LowerDice'
 import Modal from './components/modal'
 import WinnerModal from './components/WinnerModal'
+import DicePocket from './dice-pocket'
 
 const LudoGamePage = () => {
 
@@ -23,7 +22,12 @@ const LudoGamePage = () => {
 
         </div>
         <div className='w-full md:w-[70vh]'>
-          <UpperDice />
+          <div className="flex justify-between w-full">
+            <DicePocket playerNo={2} color={Colors.red} />
+            <DicePocket playerNo={3} color={Colors.green} isReversed />
+
+          </div>
+          {/* <UpperDice /> */}
         </div>
         <div id='ludo-board' className='w-full md:w-[70vh] h-[96vw] md:h-[70vh] bg-gray-200'>
           <div id='top-tier' className="h-[40%] w-full bg-slate-300 flex justify-center items-center">
@@ -43,7 +47,11 @@ const LudoGamePage = () => {
           </div>
         </div>
         <div className='w-full md:w-[70vh]'>
-          <LowerDice />
+          {/* <LowerDice /> */}
+          <div className="flex justify-between w-full">
+            <DicePocket playerNo={1} color={Colors.blue} />
+            <DicePocket playerNo={4} color={Colors.yellow} isReversed />
+          </div>
         </div>
       </div>
     </div>
