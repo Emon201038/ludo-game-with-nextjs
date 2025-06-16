@@ -1,0 +1,126 @@
+.cube {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  transform-style: preserve-3d;
+  transform: rotateX(90deg) rotateY(90deg) rotateZ(0deg);
+  /* transition: transform 1s; */
+}
+
+
+.cube div {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border: 1px solid #ccc;
+}
+
+.cube .front {
+  transform: rotateY(0deg) translateZ(15px);
+  background: #eee;
+}
+
+.cube .back {
+  transform: rotateX(180deg) translateZ(15px);
+  background: #eee;
+}
+
+.cube .left {
+  transform: rotateY(-90deg) translateZ(15px);
+  background: #eee;
+}
+
+.cube .right {
+  transform: rotateY(90deg) translateZ(15px);
+  background: #eee;
+}
+
+.cube .top {
+  transform: rotateX(90deg) translateZ(15px);
+  background: #eee;
+}
+
+.cube .bottom {
+  transform: rotateX(-90deg) translateZ(15px);
+  background: #eee;
+}
+
+/* DOT ALIGN */
+.cube .front span,
+.cube .left span:nth-child(1),
+.cube .right span:nth-child(1) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.cube .top span:nth-child(1),
+.cube .left span:nth-child(2),
+.cube .right span:nth-child(2),
+.cube .bottom span:nth-child(1) {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+}
+.cube .top span:nth-child(2),
+.cube .left span:nth-child(3),
+.cube .right span:nth-child(3),
+.cube .bottom span:nth-child(2) {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+}
+.cube .right span:nth-child(4),
+.cube .bottom span:nth-child(3) {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+.cube .right span:nth-child(5),
+.cube .bottom span:nth-child(4) {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+}
+.cube .back pre {
+  font-size: 18px;
+  font-family: "fontawesome";
+  margin: 0;
+}
+.cube .back .firstPre {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  top: 1px;
+  left: 18px;
+}
+.cube .back .secondPre {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  bottom: 1px;
+  right: 18px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+
+  }
+  50%{
+    top: -20px;
+    scale: 0.85;
+  }
+  100% {
+    transform: rotateX(720deg) rotateY(720deg) rotateZ(720deg); /* Full spin */
+    top: 0;
+    scale: 1;
+  }
+}
+
+.cube.animate {
+  animation: spin 0.8s ease-in-out;
+}

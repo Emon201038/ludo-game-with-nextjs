@@ -1,0 +1,33 @@
+.styledBorder {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+}
+.pin {
+  transform: translate(0%, -30%);
+}
+.styledBorder::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 4px;
+  width: 100%;
+  height: 100%;
+  border: 3px dashed black;
+  border-radius: 999px;
+  animation: highlightPiece 1s infinite linear;
+}
+
+@keyframes highlightPiece {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.4);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
