@@ -1,4 +1,4 @@
-type SoundName = 'dice_roll' | 'cheer' | 'game_start' | 'collide' | 'home_win' | 'pile_move' | 'safe_spot' | 'ui' | 'home' | 'girl2'
+type SoundName = 'dice_roll' | 'cheer' | 'game_start' | 'collide' | 'home_win' | 'pile_move' | 'safe_spot' | 'ui' | 'home' | 'girl2' | 'click'
 export const playSound = (soundName: SoundName, loop = false) => {
   try {
     const sound = new Audio(getSoundPath(soundName));
@@ -32,6 +32,8 @@ const getSoundPath = (soundName: SoundName) => {
       return "/sfx/home.mp3";
     case 'girl2':
       return "/sfx/girl2.mp3";
+    case 'click':
+      return "/sfx/click.mp3";
     default:
       throw new Error(`Sound ${soundName} not found`);
   }

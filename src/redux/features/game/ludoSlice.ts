@@ -1,45 +1,68 @@
 // features/auth/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initialState } from './initialStats';
+import { initialState, Player } from './initialStats';
 
 
 export const matchSlice = createSlice({
   name: 'ludo',
   initialState: initialState,
   reducers: {
-    resetGame: () => initialState,
-    diceClick: (state, action: PayloadAction<{ player: number, diceValue: number }>) => {
-      const { player } = action.payload;
-      state.diceNo = action.payload.diceValue
-      let chancePlayer = player + 1 as 1 | 2 | 3 | 4;
-      if (chancePlayer > 4) {
-        chancePlayer = 1
+    startGame: (state, action: PayloadAction<{ players: Omit<Player, "pieces">[], mode: "classic" | "team", playerCount: number }>) => {
+      state.gameMode = action.payload.mode;
+      const player = action.payload.players.map(p => ({
+        ...p,
+        pieces: [...Array(4)].map(() => ({
+          id: p.id,
+          pos: 0,
+          travelCount: 0,
+        }))
+      }));
+
+      state.players = player;
+      state.totalPlayers = action.payload.playerCount;
+      if (action.payload.playerCount !== 4) {
+        const playersId = action.payload.players.map(p => Number(p.id.slice(1)));
+        state.currentPlayer = Math.min(...playersId) as 1 | 2 | 3 | 4
       }
-
-      state.currentPlayer = chancePlayer
-
     },
+    resetGame: () => initialState,
+
     updateDiceValue: (state, action: PayloadAction<{ diceValue: number }>) => {
       state.diceNo = action.payload.diceValue
       state.isDiceRolled = true
       state.isDiceRolling = false
     },
+
     updateDiceRolling: (state, action: PayloadAction<{ isDiceRolling: boolean }>) => {
       state.isDiceRolling = action.payload.isDiceRolling;
       state.isDiceRolled = false;
       state.touchDiceBlock = true
     },
+
     enablePileSelection: (state, action: PayloadAction<{ player: number }>) => {
       state.touchDiceBlock = true;
       state.pileSelectionPlayer = action.payload.player
     },
-    updatePlayerChance: (state, action: PayloadAction<{ player: number }>) => {
-      let chancePlayer = action.payload.player + 1;
-      if (chancePlayer > 4) {
-        chancePlayer = 1
-      };
 
-      state.currentPlayer = chancePlayer as 1 | 2 | 3 | 4;
+    updatePlayerChance: (state, action: PayloadAction<{ player: number }>) => {
+      if (state.totalPlayers === 4) {
+        let chancePlayer = action.payload.player + 1;
+        if (chancePlayer > state.totalPlayers) {
+          chancePlayer = 1;
+        };
+        state.currentPlayer = chancePlayer as 1 | 2 | 3 | 4;
+      } else {
+        const currentPlayer = action.payload.player;
+        if (currentPlayer === 1) {
+          state.currentPlayer = 3;
+        } else if (currentPlayer === 3) {
+          state.currentPlayer = 1;
+        } else if (currentPlayer === 2) {
+          state.currentPlayer = 4;
+        } else if (currentPlayer === 4) {
+          state.currentPlayer = 2;
+        }
+      }
       state.isDiceRolled = false;
       state.touchDiceBlock = false
     },
@@ -93,5 +116,5 @@ export const matchSlice = createSlice({
 
 });
 
-export const { resetGame, diceClick, updateDiceValue, updateDiceRolling, enablePileSelection, updatePlayerChance, enableCellSelection, updatePlayerPieceValue, unfreezeDice, disableTouch, announceWinner } = matchSlice.actions;
+export const { resetGame, updateDiceValue, updateDiceRolling, enablePileSelection, updatePlayerChance, enableCellSelection, updatePlayerPieceValue, unfreezeDice, disableTouch, announceWinner, startGame } = matchSlice.actions;
 export default matchSlice.reducer;

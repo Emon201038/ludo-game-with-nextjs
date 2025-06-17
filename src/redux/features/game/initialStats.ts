@@ -1,8 +1,11 @@
+// src/redux/features/game/initialStats.ts
 interface MatchState {
   P1: PlayerState[];
   P2: PlayerState[];
   P3: PlayerState[];
   P4: PlayerState[];
+  players: Player[];
+  totalPlayers: number;
   currentPlayer: 1 | 2 | 3 | 4;
   diceNo: number;
   winner?: string | null;
@@ -12,7 +15,34 @@ interface MatchState {
   currentposition: PlayerState[];
   pileSelectionPlayer: number;
   cellSelectionPlayer: number;
+  gameMode?: "classic" | "team";
+  history: History[]
+};
+
+interface History {
+  currentChancePlayer: 1 | 2 | 3 | 4;
+  previousChancePlayer: 1 | 2 | 3 | 4;
+  diceValue: number;
+  isPileMoved?: boolean;
+  isCollision?: boolean;
+  colliedPiece?: {
+    id: string;
+    pos: number;
+    travelCount: number;
+  };
+  movedPieceBeforeMove?: {
+    id: string;
+    pos: number;
+    travelCount: number;
+  };
 }
+
+export interface Player {
+  name: string;
+  id: string;
+  team?: number;
+  pieces: PlayerState[]
+};
 
 export interface PlayerState {
   id: string;
@@ -117,14 +147,17 @@ export const initialState: MatchState = {
   P2: player2InitialState,
   P3: player3InitialState,
   P4: player4InitialState,
+  players: [],
+  totalPlayers: 0,
   isDiceRolled: false,
   isDiceRolling: false,
   touchDiceBlock: false,
   currentposition: [],
-  // [...player1InitialState, ...player2InitialState, ...player3InitialState, ...player4InitialState],
   pileSelectionPlayer: -1,
   cellSelectionPlayer: -1,
   currentPlayer: 1,
   diceNo: 1,
-  winner: null
+  winner: null,
+  gameMode: undefined,
+  history: []
 };

@@ -8,28 +8,23 @@ import HorizontalCell from './components/horizontal-cell'
 import Squar from './components/squar'
 import Modal from './components/modal'
 import WinnerModal from './components/WinnerModal'
-import DicePocket from './dice-pocket'
+import UpperDice from './components/upper-dices'
+import LowerDice from './components/LowerDice'
 
 const LudoGamePage = () => {
 
   return (
-    <div className='h-[100vh] w-screen flex relative justify-center object-center p-4'>
+    <div style={{ backgroundImage: "url('/images/bg.jpg')" }} className='h-[100vh] w-screen flex relative justify-center object-center p-4'>
 
-      <div className='w-[96vw] md:w-[96vh] h-full flex flex-col justify-center items-center gap-3'>
+      <div style={{ backgroundImage: "url('/images/bg.jpg')" }} className='w-[342px] h-full flex flex-col justify-center items-center gap-3 bg-contain'>
         <WinnerModal />
         <div className='absolute left-4 top-4'>
           <Modal />
-
         </div>
-        <div className='w-full md:w-[70vh]'>
-          <div className="flex justify-between w-full">
-            <DicePocket playerNo={2} color={Colors.red} />
-            <DicePocket playerNo={3} color={Colors.green} isReversed />
-
-          </div>
-          {/* <UpperDice /> */}
+        <div className='w-[342px]'>
+          <UpperDice />
         </div>
-        <div id='ludo-board' className='w-full md:w-[70vh] h-[96vw] md:h-[70vh] bg-gray-200'>
+        <div id='ludo-board' className='size-[342px] bg-gray-200'>
           <div id='top-tier' className="h-[40%] w-full bg-slate-300 flex justify-center items-center">
             <PlayerBase player={2} color={Colors.red} />
             <VerticalCell cells={Plot2Data} color={Colors.green} />
@@ -46,12 +41,8 @@ const LudoGamePage = () => {
             <PlayerBase player={4} color={Colors.yellow} />
           </div>
         </div>
-        <div className='w-full md:w-[70vh]'>
-          {/* <LowerDice /> */}
-          <div className="flex justify-between w-full">
-            <DicePocket playerNo={1} color={Colors.blue} />
-            <DicePocket playerNo={4} color={Colors.yellow} isReversed />
-          </div>
+        <div className='w-[342px]'>
+          <LowerDice />
         </div>
       </div>
     </div>
