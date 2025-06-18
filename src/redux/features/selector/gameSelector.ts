@@ -1,5 +1,5 @@
 import { RootState } from "@/redux/store/store"
-export const selectCurrentPositions = (state: RootState) => state.ludo.currentPositions;
+export const selectCurrentPositions = (state: RootState) => state.ludo.currentposition;
 
 export const selectCurrentPlayer = (state: RootState) => state.ludo.currentPlayer;
 

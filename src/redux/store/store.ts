@@ -1,7 +1,6 @@
 // store/store.ts
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import rootReducer from './rootReducer';
-import { api } from './api';
 import {
   persistReducer,
   persistStore,
@@ -34,7 +33,10 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware),
+    })
+  // .concat(api.middleware)
+  ,
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export const persistor = persistStore(store);
