@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/redux/hooks";
 import { Colors } from "@/helper/Colors";
-import DicePocket from "../dice-pocket";
+import DicePocket from "./dice-pocket";
 
 const UpperDice = () => {
   const { totalPlayers: playersCount, players } = useAppSelector(state => state.ludo);

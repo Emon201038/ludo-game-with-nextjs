@@ -8,6 +8,7 @@ export const matchSlice = createSlice({
   initialState: initialState,
   reducers: {
     startGame: (state, action: PayloadAction<{ players: Omit<Player, "pieces">[], mode: "classic" | "team", playerCount: number }>) => {
+      state.matchId = crypto.randomUUID();
       state.gameMode = action.payload.mode;
       const player = action.payload.players.map(p => ({
         ...p,

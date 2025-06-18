@@ -8,6 +8,7 @@ import { playSound } from "@/helper/SoundUtility";
 const delay = async (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 function checkWinningCriteria(pieces: PlayerState[]) {
+
   for (const piece of pieces) {
     if (piece.travelCount < 57) return false
   }
@@ -16,6 +17,8 @@ function checkWinningCriteria(pieces: PlayerState[]) {
 
 export const handleForwardThunk = (playerNo: 1 | 2 | 3 | 4, id: string, pos: number): AppThunk => async (dispatch, getState) => {
   const state = getState().ludo;
+
+  console.log(playerNo, "PlayeNO")
 
   const plotedPieces = state.currentposition;
   const diceNo = state.diceNo;

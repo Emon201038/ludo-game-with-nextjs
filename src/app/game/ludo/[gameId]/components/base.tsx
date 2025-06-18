@@ -47,10 +47,12 @@ const PlayerBase = ({ color, player }: { color: string, player: 1 | 2 | 3 | 4 })
 };
 
 const Pocket = ({ color, player, pieceNo, data, onClick }: { color: string; player: 1 | 2 | 3 | 4; onClick: (value: { player: number, pieceId: string }) => void; pieceNo: number; data: PlayerState[] }) => {
+  const players = useAppSelector(state => state.ludo.players);
+  const isParticipient = useMemo(() => players.some(p => p.id.includes(`P${player}`)), [players, player])
   return (
     <div style={{ backgroundColor: color }} className='size-6 rounded-full flex justify-center items-center animate-none' >
       {
-        data && data[pieceNo - 1].pos === 0 &&
+        data && data[pieceNo - 1].pos === 0 && isParticipient &&
         (
           <Pile cell={false} pieceId={data[pieceNo - 1].id} color={color} player={player} onClick={() => onClick({ player, pieceId: data[pieceNo - 1].id })} />
         )

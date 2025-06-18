@@ -41,7 +41,7 @@ const Dice = ({ playerNo, }: { playerNo: 1 | 2 | 3 | 4 }) => {
 
   const handleDiceClick = async () => {
     dispatch(updateDiceRolling({ isDiceRolling: true }))
-    // const value = 5;
+    // const value = 2;
     // const value = Math.floor(Math.random() * 6) + 1;
     const value = biasedDiceRoll();
     const diceSound = new Audio("/sfx/dice_roll.mp3");

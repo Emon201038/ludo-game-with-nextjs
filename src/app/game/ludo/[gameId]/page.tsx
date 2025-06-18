@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import PlayerBase from './components/base'
 import { Colors } from '@/helper/Colors'
 import VerticalCell from './components/vertical-cell'
@@ -10,16 +10,29 @@ import Modal from './components/modal'
 import WinnerModal from './components/WinnerModal'
 import UpperDice from './components/upper-dices'
 import LowerDice from './components/LowerDice'
+import { useAppSelector } from '@/redux/hooks'
+import { notFound, useParams } from 'next/navigation'
 
 const LudoGamePage = () => {
+  const { matchId } = useAppSelector(state => state.ludo);
+  const [isExisting, setIsExisting] = React.useState(false);
+  const params = useParams()
 
+  useEffect(() => {
+    if (matchId !== params.gameId && !isExisting) {
+      notFound()
+    }
+  }, [matchId, params.gameId, isExisting])
   return (
-    <div style={{ backgroundImage: "url('/images/bg.jpg')" }} className='h-[100vh] w-screen flex relative justify-center object-center p-4'>
+    <div
+      style={{ backgroundImage: "url('/images/bg.jpg')" }}
+      className='h-[100vh] w-screen flex relative justify-center object-center p-4 '>
 
-      <div style={{ backgroundImage: "url('/images/bg.jpg')" }} className='w-[342px] h-full flex flex-col justify-center items-center gap-3 bg-contain'>
+      <div
+        className='bg-wrapper w-[342px] h-full flex flex-col justify-center items-center gap-3 bg-contain'>
         <WinnerModal />
         <div className='absolute left-4 top-4'>
-          <Modal />
+          <Modal setIsExisting={setIsExisting} />
         </div>
         <div className='w-[342px]'>
           <UpperDice />

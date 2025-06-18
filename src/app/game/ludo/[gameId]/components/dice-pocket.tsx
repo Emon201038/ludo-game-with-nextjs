@@ -1,7 +1,7 @@
 "use client"
 import { useAppSelector } from '@/redux/hooks'
 import React from 'react'
-import Dice from './components/Dice';
+import Dice from './Dice';
 import { MapPinIcon } from 'lucide-react';
 import CurrentTurnArrow from './current-turn-arrow';
 

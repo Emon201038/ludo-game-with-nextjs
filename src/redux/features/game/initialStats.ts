@@ -1,5 +1,6 @@
 // src/redux/features/game/initialStats.ts
 interface MatchState {
+  matchId: string;
   P1: PlayerState[];
   P2: PlayerState[];
   P3: PlayerState[];
@@ -143,6 +144,7 @@ const player4InitialState: PlayerState[] = [
 ]
 
 export const initialState: MatchState = {
+  matchId: "",
   P1: player1InitialState,
   P2: player2InitialState,
   P3: player3InitialState,

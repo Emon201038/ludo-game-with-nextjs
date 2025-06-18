@@ -21,7 +21,7 @@ const Squar = () => {
       {
         player: player1,
         playerNO: 1,
-        top: 40,
+        top: 35,
         left: 19,
         pieceColor: Colors.blue,
         translate: 'translateX'
@@ -116,7 +116,7 @@ const PlayerPieces = React.memo(({ player, style, pieceColor, translate, playerN
         player.map((p, index) =>
           <div key={p.id} style={{
             top: 0,
-            zIndex: 70,
+            zIndex: 50,
             position: 'absolute',
             bottom: 0,
             transform: `scale(0.5) ${translate}(${index * 14}px)`,
